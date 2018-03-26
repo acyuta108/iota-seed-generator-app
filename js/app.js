@@ -7,7 +7,8 @@ new Vue({
         mnemonicIsValid: false,
         passphraseValue: '',
         passphraseMessage: ['We strongly recommend using a passphrase for your seed!'],
-        seedValue: ''
+        seedValue: '',
+        networkStatusOnline: navigator.onLine
     },
     mounted: function () {
         document.addEventListener('offline', () => this.networkStatusOnline = navigator.onLine);
@@ -75,6 +76,15 @@ new Vue({
         },
         seedToClipSnack: function () {
             this.$snackbar.open('Seed copied to clipbard!');
+        },
+        networkStatusWarning: function () {
+                const onlineMessage = 'Although this app NEVER transmits data when generating/converting a mnemonic, we recommend to use this tool while offline. Disconnect your wifi/eth until the network status button changes to "You are offline"';
+                const offlineMessage = 'You are currently Offline and "safe" to generate a new mnemonic/seed';
+                this.$snackbar.open({
+                    message: this.networkStatusOnline ? onlineMessage: offlineMessage,
+                    indefinite: true,
+                    type: this.networkStatusOnline ? 'is-warning' : 'is-success'
+                });
         }
     },
     watch: {

@@ -13,64 +13,127 @@
         <script defer src="js/app.js"></script>
     </head>
     <body>
-        <section class="hero is-medium is-primary is-bold">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        IOTA Wallet Seed Generator
-                    </h1>
-                    <p class="subtitle">
-                    Securely generate a seed for your IOTA crypto wallet using a mnemonic and a passphrase.
-                    </p>
-                </div>
-            </div>
-        </section>
         <div id="app">
+            <section class="hero is-medium is-primary is-bold">
+                <div class="hero-head">
+                    <nav class="navbar">
+                        <div class="container has-text-right navbar-end">
+                            <span class="navbar-item">
+                                <a v-if="!networkStatusOnline"
+                                   @click="networkStatusWarning"
+                                   class="button is-success">
+                                    <b-icon icon="close-network"></b-icon>
+                                    <span>You are offline</span>
+                                </a>
+                                <a v-if="networkStatusOnline"
+                                   @click="networkStatusWarning"
+                                   class="button is-warning">
+                                    <b-icon icon="access-point-network"></b-icon>
+                                    <span>You are online!</span>
+                                </a>
+                            </span>
+                        </div>
+                    </nav>
+                </div>
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            IOTA Wallet Seed Generator
+                        </h1>
+                        <p class="subtitle">
+                        Securely generate a seed for your IOTA crypto wallet using a mnemonic and a passphrase.
+                        </p>
+                    </div>
+                </div>
+            </section>
             <section class="section">
                 <div class="container">
-                    <b-field label="Mnemonic"
-                             :type="mnemonicStyle"
-                             :message="mnemonicMessage">
-                        <b-input v-model="mnemonicValue"
+                    <b-field :type="mnemonicStyle"
+                     :message="mnemonicMessage">
+                        <b-input placeholder="Mnemonic" v-model="mnemonicValue"
                                  type="textarea"
                                  ></b-input>
                     </b-field>
 
-                    <b-field label="Passphrase"
-                             :type="passphraseValue === '' ? 'is-warning' : 'is-success'"
+                    <b-field :type="passphraseValue === '' ? 'is-warning' : 'is-success'"
                              :message="passphraseMessage">
-                        <b-input v-model="passphraseValue" type="password"></b-input>
+                        <b-input placeholder="Passphrase" v-model="passphraseValue" type="password"></b-input>
                     </b-field>
 
-                    <b-field label="Seed">
-                             <b-input id="seed"
-                                      :value="seedValue"
-                                      readonly
-                                      type="password"
-                                      minlength="81"
-                                      maxlength="81"
-                                      password-reveal
-                                      expanded
-                                      ></b-input>
-                                 <p class="control">
-                                    <button class="button is-primary"
+                    <b-field>
+                        <b-input id="seed"
+                                 placeholder="Seed"
+                                 :value="seedValue"
+                                     readonly
+                                     type="password"
+                                     minlength="81"
+                                     maxlength="81"
+                                     password-reveal
+                                     expanded
+                                     ></b-input>
+                                <button class="button is-primary"
                                         @click="seedToClip"
                                         :disabled="seedValue === ''">Copy to Clip</button>
-                                 </p>
-                    </b-field>
+                        </b-field>
                 </div>
             </section>
             <section>
                 <b-field>
-                    <button class="button is-warning" @click="generate"
-                            is-warning
-                            :disabled="this.mnemonicIsValid"
-                            >New Mnemonic</button>
-                    <button class="button is-success" @click="convert"
-                            :disabled="!this.mnemonicIsValid"
-                            >Convert to Seed</button>
+                    <div class="container">
+                        <button class="button is-warning" @click="generate"
+                                is-warning
+                                :disabled="this.mnemonicIsValid"
+                                >New Mnemonic</button>
+                        <button class="button is-success" @click="convert"
+                                :disabled="!this.mnemonicIsValid"
+                                >Convert to Seed</button>
+                    </div>
                 </b-field>
             </section>
         </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>
+                        <strong>Instructions:</strong>
+                        <ol>
+                            <li><strong>Generate a 'New Mnemonic'</strong>.
+                                Save it securely (Pen and Paper or offline password manager)</li>
+                            <li><strong>Type your passphrase.</strong> This is very important given 2 facts: a. if a third party gets access to your mnemonic, and you did not use a passphrase when generating the seed, the third party will have direct access to your IOTA wallet funds; and b. you can create multiple wallets from a single mnemonic by using separate passphrase for each seed/wallet. This makes it easier to manage multiple wallets and for the purpose of plausible deniability (read <a
+                         href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">From mnemonic to seed</a> in the BIP39 spec)</li>
+                            <li><strong>Convert to Seed</strong></li>
+                            <li><strong>Copy the Seed</strong>
+                                (do not write it or save it anywhere) and <strong>login into
+                                    your <a href="https://github.com/iotaledger/wallet/releases">IOTA wallet</a></strong></li>
+                            <li><strong>And you are Done!</strong> Next time you want to login to your IOTA wallet, come back to this tool (online or offline copy), paste the Mnemonic you saved in step 1, and follow the steps again.</li>
+                        </ol>
+                    </p>
+                    <p>
+                        <strong><a href="https://iota.org/">IOTA</a></strong> tools designed and developed by <a href="https://ganapatiweb.com">GanapatiWeb</a>.
+                    </p>
+                    <p>The source code for this tool (and dependencies) can be found in our <a href="http://github.com/acyuta108">Github</a> page under the
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a> license.
+                    </p>
+                    <p>
+                    <span style="color:red;">Disclaimer</span>: This tool is NOT an official tool by the <a href="https://iotasupport.com/foundation.shtml">IOTA foundation</a>.
+                        The main library (<a href="https://github.com/acyuta108/iota-bip39">authored by me</a>) uses a combination of
+                        <a href="https://github.com/iotaledger/iota.lib.js/">the official iotal.lib.js</a>
+                         library and the <a href="https://github.com/bitcoinjs/bip39">bip39</a>
+                         library for generating seeds. Use this tool at your own risk of data
+                         and/or IOTA/any currency funds loss. We built this tool to facilitate
+                         the use of any IOTA cryptocurrency wallet in a more secure way,
+                         the way we use hardware wallets or any
+                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a>
+                        implemented tool for generating secure and deterministic cryptographic keys.
+                        This tool does NOT transmit any data when creating or generating
+                        secure mnemonics or seeds, and does NOT store any data.
+                        We encourage you nevertheless disconnect from the network or download this
+                        tool <strong>directly</strong> from our
+                        <a href="http://github.com/acyuta108/iota-seed-generator.git">Github repo</a>
+                        and use it on an offline computer/device.
+                    </p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
