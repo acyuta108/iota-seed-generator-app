@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>IOTA Wallet Seed Generator</title>
+        <link rel="stylesheet" href="css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="css/buefy.min.css">
+
+        <script defer src="js/vue.min.js"></script>
+        <script defer src="js/buefy.js"></script>
+        <script src="js/iota-bip39.js"></script>
+        <script defer src="js/app.js"></script>
+    </head>
+    <body>
+        <section class="hero is-medium is-primary is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        IOTA Wallet Seed Generator
+                    </h1>
+                    <p class="subtitle">
+                    Securely generate a seed for your IOTA crypto wallet using a mnemonic and a passphrase.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div id="app">
+            <section class="section">
+                <div class="container">
+                    <b-field label="Mnemonic"
+                             :type="mnemonicStyle"
+                             :message="mnemonicMessage">
+                        <b-input v-model="mnemonicValue"
+                                 type="textarea"
+                                 ></b-input>
+                    </b-field>
+
+                    <b-field label="Passphrase"
+                             :type="passphraseValue === '' ? 'is-warning' : 'is-success'"
+                             :message="passphraseMessage">
+                        <b-input v-model="passphraseValue" type="password"></b-input>
+                    </b-field>
+
+                    <b-field label="Seed">
+                             <b-input id="seed"
+                                      :value="seedValue"
+                                      readonly
+                                      type="password"
+                                      minlength="81"
+                                      maxlength="81"
+                                      password-reveal
+                                      expanded
+                                      ></b-input>
+                                 <p class="control">
+                                    <button class="button is-primary"
+                                        @click="seedToClip"
+                                        :disabled="seedValue === ''">Copy to Clip</button>
+                                 </p>
+                    </b-field>
+                </div>
+            </section>
+            <section>
+                <b-field>
+                    <button class="button is-warning" @click="generate"
+                            is-warning
+                            :disabled="this.mnemonicIsValid"
+                            >New Mnemonic</button>
+                    <button class="button is-success" @click="convert"
+                            :disabled="!this.mnemonicIsValid"
+                            >Convert to Seed</button>
+                </b-field>
+            </section>
+        </div>
+    </body>
+</html>
