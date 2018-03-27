@@ -4,6 +4,8 @@ Download this repository (git clone or Download link), open index.html file in y
 All the files required for this app to work are included and can be used 100% offline. We actually encourage you to do so
 in case you have some evil extension in your browser leaking your data.
 
+You can also use/view a live version of this app at https://acyuta108.github.io/iota-seed-generator-app/
+
 **Instructions:**
 
 1.  **Generate a 'New Mnemonic'**. Save it securely (Pen and Paper or
