@@ -41,7 +41,7 @@
                             IOTA Wallet Seed Generator
                         </h1>
                         <p class="subtitle">
-                        Securely generate a seed for your IOTA crypto wallet using a mnemonic and a passphrase.
+                        Securely generate a seed for your IOTA crypto wallet using a mnemonic and a passphrase
                         </p>
                     </div>
                 </div>
@@ -76,8 +76,6 @@
                                         :disabled="seedValue === ''">Copy to Clip</button>
                         </b-field>
                 </div>
-            </section>
-            <section>
                 <b-field>
                     <div class="container">
                         <button class="button is-warning" @click="generate"
@@ -92,8 +90,8 @@
             </section>
         </div>
         <footer class="footer">
-            <div class="container">
-                <div class="content has-text-centered">
+            <div>
+                <div class="container">
                     <p>
                         <strong>Instructions:</strong>
                         <ol>
@@ -108,14 +106,15 @@
                             <li><strong>And you are Done!</strong> Next time you want to login to your IOTA wallet, come back to this tool (online or offline copy), paste the Mnemonic you saved in step 1, and follow the steps again.</li>
                         </ol>
                     </p>
-                    <p>
-                        <strong><a href="https://iota.org/">IOTA</a></strong> tools designed and developed by <a href="https://ganapatiweb.com">GanapatiWeb</a>.
-                    </p>
-                    <p>The source code for this tool (and dependencies) can be found in our <a href="http://github.com/acyuta108">Github</a> page under the
+                </div>
+            </div>
+            <section class="section level">
+                <div class="container has-text-centered level-item">
+                    <div><strong><a href="https://iota.org/">IOTA</a></strong> tools designed and developed by <a href="https://ganapatiweb.com">GanapatiWeb</a>.
+                    The source code for this tool (and dependencies) can be found in our <a href="http://github.com/acyuta108">Github</a> page under the
                     <a href="http://opensource.org/licenses/mit-license.php">MIT</a> license.
-                    </p>
-                    <p>
-                    <span style="color:red;">Disclaimer</span>: This tool is NOT an official tool by the <a href="https://iotasupport.com/foundation.shtml">IOTA foundation</a>.
+                    </div>
+                    <div><span style="color:red;">Disclaimer</span>: This tool is NOT an official tool by the <a href="https://iotasupport.com/foundation.shtml">IOTA foundation</a>.
                         The main library (<a href="https://github.com/acyuta108/iota-bip39">authored by me</a>) uses a combination of
                         <a href="https://github.com/iotaledger/iota.lib.js/">the official iotal.lib.js</a>
                          library and the <a href="https://github.com/bitcoinjs/bip39">bip39</a>
@@ -131,9 +130,9 @@
                         tool <strong>directly</strong> from our
                         <a href="http://github.com/acyuta108/iota-seed-generator.git">Github repo</a>
                         and use it on an offline computer/device.
-                    </p>
+                    </div>
                 </div>
-            </div>
+            </section>
         </footer>
     </body>
 </html>
